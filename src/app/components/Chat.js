@@ -1,7 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
 
-const Chat = () => {
+const Chat = ({ link }) => {
+  // const [ytlink, setYtLink] = useState(link);
   const [message, setMessage] = useState("");
   const [question, setQuestion] = useState("");
   const [previousChats, setPreviousChats] = useState([]);
@@ -50,26 +51,13 @@ const Chat = () => {
     }
     console.log(previousChats);
   }, [message, currentTitle]);
+  // useEffect(()=>{
+  //   setPreviousChats=[]
+  // }, [ytlink])
   console.log(previousChats);
 
   return (
-    <div>
-      <div className="flex w-full gap-3 bottom-0">
-        <input
-          className="p-2 border-2 rounded-2xl border-black text-center w-[85%]"
-          //   placeholder="Ask any question"
-          value={question}
-          onChange={(e) => {
-            setQuestion(e.target.value);
-          }}
-        />
-        <button
-          className="bg-[#428af5] rounded-2xl text-xl font-bold text-white w-[15%]"
-          onClick={clickHandler}
-        >
-          ASK
-        </button>
-      </div>
+    <div style={{ height: "800px" }} className="flex flex-col">
       <div style={{ maxHeight: "400px", overflowY: "auto" }}>
         {previousChats && (
           <ul>
@@ -96,6 +84,22 @@ const Chat = () => {
             })}
           </ul>
         )}
+      </div>
+      <div className="flex w-full gap-3 bottom-0">
+        <input
+          className="p-2 border-2 rounded-2xl border-black text-center w-[85%]"
+          //   placeholder="Ask any question"
+          value={question}
+          onChange={(e) => {
+            setQuestion(e.target.value);
+          }}
+        />
+        <button
+          className="bg-[#428af5] rounded-2xl text-xl font-bold text-white w-[15%]"
+          onClick={clickHandler}
+        >
+          ASK
+        </button>
       </div>
     </div>
   );

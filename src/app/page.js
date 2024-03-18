@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { useState } from "react";
 import YoutubePlayer from "./components/YoutubePlayer";
 import Chat from "./components/Chat";
@@ -15,6 +15,20 @@ const Page = () => {
     const params = new URLSearchParams(new URL(input).search);
     setLink(params.get("v"));
   };
+
+  useEffect(() => {
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        message: link,
+      }),
+    };
+    fetch("http://127.0.0.1:8000/prepare", options);
+  }, [link]);
+
   return (
     <>
       <h2 className="text-6xl font-bold text-center mt-6">AskTube</h2>
@@ -52,9 +66,8 @@ const Page = () => {
             />
           )}
         </div>
-
         <div className="w-[40%] border-8 border-black border-solid p-8 mx-16 rounded-2xl h-[500px]">
-          <Chat />
+          <Chat link={link} />
         </div>
       </div>
     </>
